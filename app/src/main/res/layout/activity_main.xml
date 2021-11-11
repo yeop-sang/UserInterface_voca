@@ -27,28 +27,30 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:background="@drawable/main_button_1"
+            android:background="@drawable/main_button"
             android:drawableTop="@drawable/tab_icon1"
-            android:text="단어장" />
+            android:text="단어장"
+            android:theme="@style/Ripple"/>
 
         <Button
             android:id="@+id/main_btn2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/main_button_2"
+            android:background="@drawable/main_button"
             android:drawableTop="@drawable/tab_icon2"
-            android:text="단어카드" />
+            android:text="단어카드"
+            android:theme="@style/Ripple"/>
 
         <Button
             android:id="@+id/main_btn3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/main_button_3"
+            android:background="@drawable/main_button"
             android:drawableTop="@drawable/tab_icon3"
-            android:drawingCacheQuality="auto"
-            android:text="퀴즈" />
+            android:text="퀴즈"
+            android:theme="@style/Ripple"/>
     </LinearLayout>
 
 </LinearLayout>

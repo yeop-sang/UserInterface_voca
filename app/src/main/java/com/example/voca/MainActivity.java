@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn3;
 
     private FragmentManager manager; //androidx.fragment.app.FragmentManager
-    private OneFragment oneFragment;
-    private TwoFragment twoFragment;
-    private ThreeFragment threeFragment;
+    private ListTab oneFragment;
+    private CardTab twoFragment;
+    private QuizTab threeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn3.setOnClickListener(this);
 
         manager = getSupportFragmentManager();
-        oneFragment = new OneFragment();
-        twoFragment = new TwoFragment();
-        threeFragment = new ThreeFragment();
+        oneFragment = new ListTab();
+        twoFragment = new CardTab();
+        threeFragment = new QuizTab();
 
 //      FragmentTransaction tf=manager.beginTransaction();
 //      tf.add(R.id.main_container, oneFragment);
@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(!oneFragment.isVisible()) {
                 FragmentTransaction tf = manager.beginTransaction();
                 tf.replace(R.id.main_container, oneFragment);
-                //tf.addToBackStack(null);
-                tf.addToBackStack(null);                        // 실행 스택 쌓음. 뒤로가기 누르면 뒤로 감
+                //tf.addToBackStack(null);                 // 실행 스택 쌓음. 뒤로가기 누르면 뒤로 감
 
                 tf.commit();
             }
@@ -63,8 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(!twoFragment.isVisible()) {
                 FragmentTransaction tf = manager.beginTransaction();
                 tf.replace(R.id.main_container, twoFragment);
-                //tf.addToBackStack(null);
-                tf.addToBackStack(null);                        // 실행 스택 쌓음. 뒤로가기 누르면 뒤로 감
+                //tf.addToBackStack(null);                 // 실행 스택 쌓음. 뒤로가기 누르면 뒤로 감
 
                 tf.commit();
             }
@@ -74,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 FragmentTransaction tf = manager.beginTransaction();
                 tf.replace(R.id.main_container,threeFragment);
                 //tf.addToBackStack(null);
-                tf.addToBackStack(null);
 
                 tf.commit();
             }
