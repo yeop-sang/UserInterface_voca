@@ -2,6 +2,8 @@ package com.example.voca;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CardTab twoFragment;
     private QuizTab threeFragment;
 
+    private Menu ListTabActionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn1 = findViewById(R.id.main_btn1);
         btn2 = findViewById(R.id.main_btn2);
         btn3 = findViewById(R.id.main_btn3);
+
+        ListTabActionBar = findViewById(R.id.list_tab_search);
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -77,4 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.list_tab_actionbar, menu);
+        return true;
+    }
+
 }
