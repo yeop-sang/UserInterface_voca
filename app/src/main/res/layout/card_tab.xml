@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:layout_weight="18"
-        >
+        android:layout_weight="18" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,36 +33,42 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/card_btn11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="영단어" />
 
             <Button
+                android:id="@+id/card_btn21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="뜻" />
 
             <Button
+                android:id="@+id/card_btn12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="미완료" />
 
             <Button
+                android:id="@+id/card_btn22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="완료" />
 
             <Button
+                android:id="@+id/card_btn13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:text="순서대로" />
 
             <Button
+                android:id="@+id/card_btn23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
