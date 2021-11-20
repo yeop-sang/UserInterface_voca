@@ -1,4 +1,4 @@
-package com.example.voca;
+package com.example.voca.List;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import androidx.fragment.app.DialogFragment;
+
+import com.example.voca.R;
 
 public class ListDialog extends DialogFragment {
 
