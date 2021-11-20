@@ -60,7 +60,6 @@ public class ListTab extends Fragment implements View.OnClickListener {
         if (view == listFab)  {
             listDialog.show(manager,null);
 
-            //TODO manager 어떻게 해야 하나?
         }
     }
 }
