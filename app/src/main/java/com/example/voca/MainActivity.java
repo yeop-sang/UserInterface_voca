@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.voca.List.ListTab;
+import com.example.voca.Quiz.QuizTab;
+import com.example.voca.card.CardTab;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

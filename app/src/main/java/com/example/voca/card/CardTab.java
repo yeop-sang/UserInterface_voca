@@ -1,6 +1,7 @@
-package com.example.voca;
+package com.example.voca.card;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.voca.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CardTab extends Fragment implements View.OnClickListener{
@@ -65,6 +67,14 @@ public class CardTab extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         if (v == cardFab)  {
             // cardFab 클릭 시
+            Intent intent = new Intent(v.getContext(), CardActivity.class);
+            intent.putExtra("option1",option1);
+            intent.putExtra("option2",option2);
+            intent.putExtra("option3",option3);
+
+            startActivityForResult(intent,10);
+
+
             Toast toast = Toast.makeText(context,"cardFab이 클릭됨!",Toast.LENGTH_SHORT);
             toast.show();
         }
