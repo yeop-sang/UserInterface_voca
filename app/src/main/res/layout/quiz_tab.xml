@@ -85,7 +85,7 @@
             android:paddingRight="10dp"
             android:hint="문제 수"
             android:textSize="15sp"
-            android:inputType="number"/>
+            android:inputType="number" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
