@@ -3,13 +3,16 @@ package com.example.voca;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.voca.List.ListTab;
+import com.example.voca.Quiz.QuizTab;
+import com.example.voca.card.CardTab;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
