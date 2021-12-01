@@ -83,8 +83,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#004CAF50"
+            android:backgroundTint="#4CAF50"
             android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:borderWidth="0dp"
             app:fabSize="normal" />
 
     </RelativeLayout>

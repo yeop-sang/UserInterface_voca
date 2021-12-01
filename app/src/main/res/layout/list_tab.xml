@@ -49,6 +49,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_baseline_add_24"
+                android:backgroundTint="#4CAF50"
+                app:borderWidth="0dp"
                 app:fabSize="normal" />
 
         </RelativeLayout>

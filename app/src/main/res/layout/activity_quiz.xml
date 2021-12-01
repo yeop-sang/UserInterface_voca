@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="3"
+       android:gravity="center"
+       android:id="@+id/quiz_text"
+       android:textSize="64sp"/>
+   <TableLayout
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="2"
+       android:id="@+id/quiz_table"
+       android:padding="8dp"
+       android:gravity="bottom">
+      <TableRow>
+         <Button android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="100dp"
+             android:layout_margin="4dp"
+             android:id="@+id/B_1"
+             android:text="Ans1"/>
+         <Button android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="100dp"
+             android:layout_margin="4dp"
+             android:id="@+id/B_2"
+             android:text="Ans2"/>
+      </TableRow>
+      <TableRow>
+         <Button android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="100dp"
+             android:layout_margin="4dp"
+             android:id="@+id/B_3"
+             android:text="Ans3"/>
+         <Button android:layout_width="0dp"
+             android:layout_weight="1"
+             android:layout_height="100dp"
+             android:layout_margin="4dp"
+             android:id="@+id/B_4"
+             android:text="Ans4"/>
+      </TableRow>
+   </TableLayout>
+   <Button
+       android:layout_width="match_parent"
+       android:layout_weight="1"
+       android:layout_height="0dp"
+       android:id="@+id/B_R"
+       android:text="Result"
+       android:visibility="gone"/>
+</LinearLayout>
