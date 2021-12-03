@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class VocaRepository {
-
     private VocaDao vocaDao;
     private LiveData<List<Voca>> vocas;
 
@@ -21,11 +20,8 @@ public class VocaRepository {
         return vocas;
     }
 
-    public void requestVocas(String order, int learned, boolean descending) {
-        if(learned == 3)
-            vocas = vocaDao.getAllVocas();
-        else
-            vocas = vocaDao.getVocas(order, learned, descending);
+    public LiveData<List<Voca>> getVocas(String order, boolean learned, boolean descending) {
+        return vocaDao.getVocas(order, learned, descending);
     }
 
     public void insert(Voca voca) {

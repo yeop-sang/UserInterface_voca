@@ -31,7 +31,6 @@ abstract public class VocaDatabase extends RoomDatabase {
                 }
             }
         }
-
         return INSTANCE;
     }
 

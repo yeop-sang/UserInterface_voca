@@ -3,6 +3,7 @@ package com.example.voca.Voca;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -30,5 +31,4 @@ public class Voca {
         this.mean = mean;
         this.learned = false;
     }
-
 }
