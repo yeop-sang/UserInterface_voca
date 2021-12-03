@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.voca.MainActivity;
 import com.example.voca.R;
 import com.example.voca.Voca.Voca;
 import com.example.voca.Voca.VocaDao;
