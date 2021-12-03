@@ -34,8 +34,9 @@ public class ListDialog extends DialogFragment {
         builder.setPositiveButton("추가", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                EditText word = dialogView.findViewById(R.id.word_input_text);
-//                EditText mean = dialogView.findViewById(R.id.mean_input_text);
+                EditText word = dialogView.findViewById(R.id.word_input);
+                EditText mean = dialogView.findViewById(R.id.mean_input);
+                vocaViewModel.insert(new Voca(word.getText().toString(), mean.getText().toString()));
             }
         });
         builder.setNegativeButton("취소", null);
