@@ -39,9 +39,12 @@ abstract public class VocaDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
             databaseWriteExecutor.execute(() -> {
                 VocaDao dao = INSTANCE.vocaDao();
+
+                //TODO: Remove Danger code!
+                dao.clearVocas();
+
                 Voca voca = new Voca("Hello", "안녕하세요");
                 dao.insert(voca);
                 voca = new Voca("World", "세계");

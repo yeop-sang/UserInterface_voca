@@ -9,21 +9,34 @@ import java.util.List;
 public class VocaRepository {
 
     private VocaDao vocaDao;
-    private LiveData<List<Voca>> allVocas;
+    private LiveData<List<Voca>> vocas;
 
     VocaRepository(Application application) {
         VocaDatabase db = VocaDatabase.getDatabase(application);
         vocaDao = db.vocaDao();
-        allVocas = vocaDao.getASCVocas();
+        vocas = vocaDao.getAllVocas();
     }
 
-    LiveData<List<Voca>> getAllVocas() {
-        return allVocas;
+    public LiveData<List<Voca>> getVocas() {
+        return vocas;
+    }
+
+    public void requestVocas(String order, int learned, boolean descending) {
+        if(learned == 3)
+            vocas = vocaDao.getAllVocas();
+        else
+            vocas = vocaDao.getVocas(order, learned, descending);
     }
 
     public void insert(Voca voca) {
         VocaDatabase.databaseWriteExecutor.execute(() -> {
             vocaDao.insert(voca);
+        });
+    }
+
+    public void delete(Voca voca) {
+        VocaDatabase.databaseWriteExecutor.execute(() -> {
+            vocaDao.deleteVoca(voca);
         });
     }
 }

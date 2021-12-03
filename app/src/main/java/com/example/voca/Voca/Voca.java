@@ -20,11 +20,15 @@ public class Voca {
     @NonNull
     @ColumnInfo(name = "mean")
     public String mean;
+    
+    @NonNull
+    @ColumnInfo(name = "learned")
+    public Boolean learned;
 
     public Voca(@NonNull String word, @NonNull String mean) {
         this.word = word;
         this.mean = mean;
+        this.learned = false;
     }
-
 
 }

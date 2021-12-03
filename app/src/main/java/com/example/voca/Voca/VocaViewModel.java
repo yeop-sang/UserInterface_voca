@@ -9,19 +9,29 @@ import java.util.List;
 
 public class VocaViewModel extends AndroidViewModel {
     private final VocaRepository repository;
-    private final LiveData<List<Voca>> allVocas;
+    private LiveData<List<Voca>> vocas;
 
     public VocaViewModel(Application application) {
         super(application);
         repository = new VocaRepository(application);
-        allVocas = repository.getAllVocas();
+        vocas = repository.getVocas();
     }
 
-    public LiveData<List<Voca>> getAllVocas() {
-        return allVocas;
+    public LiveData<List<Voca>> getVocas() {
+        return vocas;
+    }
+
+    public void requestVocas(String order, int learned, String desc) {
+        boolean descValue = !desc.equals("DESC");
+        repository.requestVocas(order, learned, descValue);
+        vocas = repository.getVocas();
     }
 
     public void insert(Voca voca) {
         repository.insert(voca);
+    }
+
+    public void delete(Voca voca) {
+        repository.delete(voca);
     }
 }
