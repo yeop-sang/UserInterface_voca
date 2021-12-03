@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
+            android:name=".Quiz.MainVocaQuizOX"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".card.CardActivity"
             android:exported="true" />
         <activity
@@ -21,20 +30,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.example.voca.Quiz.QuizResult"
+            android:name=".Quiz.QuizResult"
             android:exported="true" />
         <activity
-            android:name="com.example.voca.Quiz.ReadDBActivity"
+            android:name=".Quiz.ReadDBActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.voca.Quiz.QuizMainActivity"
+            android:name=".Quiz.QuizMainActivity"
             android:exported="true" />
         <activity
-            android:name="com.example.voca.Quiz.MainVocaQuiz"
-            android:exported="true">
-        </activity>
+            android:name=".Quiz.MainVocaQuiz"
+            android:exported="true"></activity>
     </application>
 
 </manifest>
