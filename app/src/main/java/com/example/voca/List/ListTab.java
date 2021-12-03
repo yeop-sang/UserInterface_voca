@@ -34,7 +34,8 @@ public class ListTab extends Fragment implements View.OnClickListener {
     ListView learnedWord;
 
     VocaViewModel vocaViewModel;
-    List<Voca> vocaList = new ArrayList<Voca>();
+    List<Voca> vocaLearnedList = new ArrayList<Voca>();
+    List<Voca> vocaNotLearnedList = new ArrayList<Voca>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,9 +44,14 @@ public class ListTab extends Fragment implements View.OnClickListener {
         manager = getFragmentManager();
 
         VocaViewModel vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
-        vocaViewModel.getVocas().observe(getViewLifecycleOwner(), vocas -> {
-            vocaList.clear();
-            vocaList.addAll(vocas);
+        vocaViewModel.getLearnedVocas().observe(getViewLifecycleOwner(), vocas -> {
+            vocaLearnedList.clear();
+            vocaLearnedList.addAll(vocas);
+        });
+
+        vocaViewModel.getNotLearnedVocas().observe(getViewLifecycleOwner(), vocas -> {
+            vocaNotLearnedList.clear();
+            vocaNotLearnedList.addAll(vocas);
         });
 
         TabHost tabHost = (TabHost) inflater.inflate(R.layout.list_tab,container,false);
@@ -53,15 +59,13 @@ public class ListTab extends Fragment implements View.OnClickListener {
 
         TabHost.TabSpec spec = tabHost.newTabSpec("tab1");
         spec.setIndicator("학습 중");
-        spec.setContent(R.id.list_tab1);
+        spec.setContent(R.id.list_tab_learned);
         tabHost.addTab(spec);
 
         spec = tabHost.newTabSpec("tab2");
         spec.setIndicator("학습 완료");
-        spec.setContent(R.id.list_tab2);
+        spec.setContent(R.id.list_tab_not_learned);
         tabHost.addTab(spec);
-
-
 
         listFab = (FloatingActionButton) tabHost.findViewById(R.id.list_fab);
         listFab.setOnClickListener(this);

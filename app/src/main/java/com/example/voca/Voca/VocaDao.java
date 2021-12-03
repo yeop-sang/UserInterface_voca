@@ -16,7 +16,7 @@ public interface VocaDao {
     @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
             "CASE WHEN :desc = 0 THEN :column END ASC," +
             "CASE WHEN :desc = 1 THEN :column END DESC")
-    LiveData<List<Voca>> getVocas(String column, int learned, boolean desc);
+    LiveData<List<Voca>> getVocas(String column, boolean learned, boolean desc);
 
     @Query("SELECT * FROM voca_table ORDER BY id")
     LiveData<List<Voca>> getAllVocas();
