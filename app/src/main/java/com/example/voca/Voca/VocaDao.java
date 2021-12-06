@@ -14,9 +14,19 @@ import java.util.List;
 public interface VocaDao {
 
     @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
-            "CASE WHEN :desc = 0 THEN :column END ASC," +
-            "CASE WHEN :desc = 1 THEN :column END DESC")
-    LiveData<List<Voca>> getVocas(String column, boolean learned, boolean desc);
+            "CASE WHEN :desc = 0 THEN word END ASC," +
+            "CASE WHEN :desc = 1 THEN word END DESC")
+    LiveData<List<Voca>> getVocasAlphabetized(boolean learned, boolean desc);
+
+    @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
+            "CASE WHEN :desc = 0 THEN mean END ASC," +
+            "CASE WHEN :desc = 1 THEN mean END DESC")
+    LiveData<List<Voca>> getVocasHangulized(boolean learned, boolean desc);
+
+    @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
+            "CASE WHEN :desc = 0 THEN id END ASC," +
+            "CASE WHEN :desc = 1 THEN id END DESC")
+    LiveData<List<Voca>> getVocasIdized(boolean learned, boolean desc);
 
     @Query("SELECT * FROM voca_table ORDER BY id")
     LiveData<List<Voca>> getAllVocas();

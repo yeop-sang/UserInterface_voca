@@ -29,9 +29,15 @@ public class VocaViewModel extends AndroidViewModel {
         return notLearnedVocas;
     }
 
-    public LiveData<List<Voca>> getVocas(String order, boolean learned, String desc) {
+    public LiveData<List<Voca>> getVocas(String column, boolean learned, String desc) {
         boolean descValue = !desc.equals("DESC");
-        return repository.getVocas(order, learned, descValue);
+        if(learned) {
+            learnedVocas = repository.getVocas(column, true, descValue);
+            return learnedVocas;
+        } else {
+            notLearnedVocas = repository.getVocas(column, false, descValue);
+            return notLearnedVocas;
+        }
     }
 
     public LiveData<List<Voca>> getVocas() {
