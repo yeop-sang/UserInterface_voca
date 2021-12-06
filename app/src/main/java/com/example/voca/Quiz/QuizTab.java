@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ public class QuizTab extends Fragment implements View.OnClickListener{
     private Boolean option2 = true;
     private Boolean option3 = true;
 
+    private EditText editText;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,6 +57,8 @@ public class QuizTab extends Fragment implements View.OnClickListener{
         quizBtn13.setOnClickListener(this);
         quizBtn23.setOnClickListener(this);
 
+        editText= linearLayout.findViewById(R.id.quiz_count);
+
         quizFab = (FloatingActionButton) linearLayout.findViewById(R.id.quiz_fab);
         quizFab.setOnClickListener(this);
 
@@ -64,11 +69,23 @@ public class QuizTab extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         if (v == quizFab)  {
             Intent intent = new Intent(v.getContext(),MainVocaQuiz.class);
+            int quizCount = 0;
+            try {
+                quizCount = Integer.parseInt(editText.getText().toString());
+            } catch (NumberFormatException e){
+                Toast toast = Toast.makeText(getContext(),"숫자만 입력해주세요",Toast.LENGTH_LONG);
+                return;
+            }
+
+            if(quizCount == 0)
+                quizCount = 10;
+
             intent.putExtra("option1",option1);
             intent.putExtra("option2",option2);
             intent.putExtra("option3",option3);
+            intent.putExtra("문제 수", quizCount);
 
-            startActivityForResult(intent,100);
+            startActivity(intent);
 
         } else {
             v.setBackgroundColor(getResources().getColor(R.color.primary_color));
