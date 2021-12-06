@@ -20,8 +20,20 @@ public class VocaRepository {
         return vocas;
     }
 
-    public LiveData<List<Voca>> getVocas(String order, boolean learned, boolean descending) {
-        return vocaDao.getVocas(order, learned, descending);
+    public LiveData<List<Voca>> getVocas(String column, boolean learned, boolean descending) {
+        vocas = convertedVocaOrdering(column, learned, descending);
+        return vocas;
+    }
+
+    private LiveData<List<Voca>> convertedVocaOrdering(String column, boolean learned, boolean descending) {
+        if(column.equals("word")) {
+            return vocaDao.getVocasAlphabetized(learned, descending);
+        } else if(column.equals("mean")) {
+            return vocaDao.getVocasHangulized(learned, descending);
+        } else if(column.equals("id")) {
+            return vocaDao.getVocasIdized(learned, descending);
+        }
+        return vocas;
     }
 
     public void insert(Voca voca) {

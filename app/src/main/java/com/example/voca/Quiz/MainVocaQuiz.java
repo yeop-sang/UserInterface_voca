@@ -25,6 +25,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
     private Button BtnR;
     private int cnt = 1;
     private int correct = 0;
+    private int quiz_cnt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,9 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
 
         textView = findViewById(R.id.quiz_text);
         textView.setText("문제 "+cnt);
+
+        Intent intent = getIntent();
+        quiz_cnt = intent.getIntExtra("문제 수",1);
     }
 
     @Override
@@ -69,7 +73,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (cnt <= 10) {
+                    if (cnt <= quiz_cnt) {
 
                         Btn1.setEnabled(true);
                         Btn2.setEnabled(true);
