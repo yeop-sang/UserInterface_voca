@@ -9,19 +9,46 @@ import java.util.List;
 
 public class VocaViewModel extends AndroidViewModel {
     private final VocaRepository repository;
-    private final LiveData<List<Voca>> allVocas;
+    private LiveData<List<Voca>> vocas;
+    private LiveData<List<Voca>> learnedVocas;
+    private LiveData<List<Voca>> notLearnedVocas;
 
     public VocaViewModel(Application application) {
         super(application);
         repository = new VocaRepository(application);
-        allVocas = repository.getAllVocas();
+        learnedVocas = repository.getVocas("word", true, false);
+        notLearnedVocas = repository.getVocas("word", false, false);
+        vocas = repository.getVocas();
     }
 
-    public LiveData<List<Voca>> getAllVocas() {
-        return allVocas;
+    public LiveData<List<Voca>> getLearnedVocas() {
+        return learnedVocas;
+    }
+
+    public LiveData<List<Voca>> getNotLearnedVocas() {
+        return notLearnedVocas;
+    }
+
+    public LiveData<List<Voca>> getVocas(String column, boolean learned, String desc) {
+        boolean descValue = !desc.equals("DESC");
+        if(learned) {
+            learnedVocas = repository.getVocas(column, true, descValue);
+            return learnedVocas;
+        } else {
+            notLearnedVocas = repository.getVocas(column, false, descValue);
+            return notLearnedVocas;
+        }
+    }
+
+    public LiveData<List<Voca>> getVocas() {
+        return vocas;
     }
 
     public void insert(Voca voca) {
         repository.insert(voca);
+    }
+
+    public void delete(Voca voca) {
+        repository.delete(voca);
     }
 }

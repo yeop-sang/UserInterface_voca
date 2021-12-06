@@ -13,25 +13,25 @@ import java.util.List;
 @Dao
 public interface VocaDao {
 
-    @Query("SELECT * FROM voca_table ORDER BY word ASC")
-    LiveData<List<Voca>> getAlphabetizedVocas();
+    @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
+            "CASE WHEN :desc = 0 THEN word END ASC," +
+            "CASE WHEN :desc = 1 THEN word END DESC")
+    LiveData<List<Voca>> getVocasAlphabetized(boolean learned, boolean desc);
 
-    @Query("SELECT * FROM voca_table ORDER BY word DESC")
-    LiveData<List<Voca>> getDeAlphabetizedVocas();
+    @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
+            "CASE WHEN :desc = 0 THEN mean END ASC," +
+            "CASE WHEN :desc = 1 THEN mean END DESC")
+    LiveData<List<Voca>> getVocasHangulized(boolean learned, boolean desc);
 
-    @Query("SELECT * FROM voca_table ORDER BY mean ASC")
-    LiveData<List<Voca>> getHangulizedVocas();
+    @Query("SELECT * FROM voca_table WHERE learned = :learned ORDER BY " +
+            "CASE WHEN :desc = 0 THEN id END ASC," +
+            "CASE WHEN :desc = 1 THEN id END DESC")
+    LiveData<List<Voca>> getVocasIdized(boolean learned, boolean desc);
 
-    @Query("SELECT * FROM voca_table ORDER BY mean DESC")
-    LiveData<List<Voca>> getDeHangulizedVocas();
+    @Query("SELECT * FROM voca_table ORDER BY id")
+    LiveData<List<Voca>> getAllVocas();
 
-    @Query("SELECT * FROM voca_table ORDER BY id ASC")
-    LiveData<List<Voca>> getASCVocas();
-
-    @Query("SELECT * FROM voca_table ORDER BY id DESC")
-    LiveData<List<Voca>> getDESCVocas();
-
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Voca voca);
 
     @Update
@@ -42,4 +42,7 @@ public interface VocaDao {
 
     @Delete
     void deleteVocas(Voca... voca);
+
+    @Query("DELETE FROM voca_table")
+    void clearVocas();
 }

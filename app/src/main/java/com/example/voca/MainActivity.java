@@ -19,8 +19,6 @@ import com.example.voca.card.CardTab;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private VocaViewModel vocaViewModel;
-
     private Button btn1;
     private Button btn2;
     private Button btn3;
@@ -36,13 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
-        vocaViewModel.getAllVocas().observe(this, vocas -> {
-           // viewHolder 위
-            Log.d("onCreate","변경감지");
-            Log.d("onCreate",vocaViewModel.getAllVocas().toString());
-        });
 
         btn1 = findViewById(R.id.main_btn1);
         btn2 = findViewById(R.id.main_btn2);

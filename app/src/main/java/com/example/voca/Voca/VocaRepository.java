@@ -7,23 +7,43 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class VocaRepository {
-
     private VocaDao vocaDao;
-    private LiveData<List<Voca>> allVocas;
+    private LiveData<List<Voca>> vocas;
 
     VocaRepository(Application application) {
         VocaDatabase db = VocaDatabase.getDatabase(application);
         vocaDao = db.vocaDao();
-        allVocas = vocaDao.getASCVocas();
+        vocas = vocaDao.getAllVocas();
     }
 
-    LiveData<List<Voca>> getAllVocas() {
-        return allVocas;
+    public LiveData<List<Voca>> getVocas() {
+        return vocas;
+    }
+
+    public LiveData<List<Voca>> getVocas(String column, boolean learned, boolean descending) {
+        return convertedVocaOrdering(column, learned, descending);
+    }
+
+    private LiveData<List<Voca>> convertedVocaOrdering(String column, boolean learned, boolean descending) {
+        if(column.equals("word")) {
+            return vocaDao.getVocasAlphabetized(learned, descending);
+        } else if(column.equals("mean")) {
+            return vocaDao.getVocasHangulized(learned, descending);
+        } else if(column.equals("id")) {
+            return vocaDao.getVocasIdized(learned, descending);
+        }
+        return vocas;
     }
 
     public void insert(Voca voca) {
         VocaDatabase.databaseWriteExecutor.execute(() -> {
             vocaDao.insert(voca);
+        });
+    }
+
+    public void delete(Voca voca) {
+        VocaDatabase.databaseWriteExecutor.execute(() -> {
+            vocaDao.deleteVoca(voca);
         });
     }
 }
