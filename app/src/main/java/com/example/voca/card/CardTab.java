@@ -73,9 +73,6 @@ public class CardTab extends Fragment implements View.OnClickListener{
             intent.putExtra("option3",option3);
 
             startActivityForResult(intent,10);
-
-            Toast toast = Toast.makeText(context,"cardFab이 클릭됨!",Toast.LENGTH_SHORT);
-            toast.show();
         }
         else {
             v.setBackgroundColor(getResources().getColor(R.color.primary_color));

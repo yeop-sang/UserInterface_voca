@@ -69,6 +69,7 @@ public class ListTab extends Fragment implements View.OnClickListener {
         spec.setContent(R.id.list_tab_learned);
         tabHost.addTab(spec);
 
+        //TODO list click 되도록
         RecyclerView recyclerLearnedView = tabHost.findViewById(R.id.list_tab_learned);
         RecyclerView recyclerNotLearnedView = tabHost.findViewById(R.id.list_tab_not_learned);
 

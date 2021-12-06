@@ -63,7 +63,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             public void onInit(int status) {
                 if (status != ERROR) {
                     // 언어를 선택한다.
-                    tts.setLanguage(Locale.KOREAN);
+                    tts.setLanguage(Locale.ENGLISH);
                 }
             }
         });
@@ -78,6 +78,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         arrowRight = findViewById(R.id.arrow_right);
         arrowLeft.setOnClickListener(this);
         arrowRight.setOnClickListener(this);
+
         if (vocas.size() > 0) {
             setText(cnt);
         } else {
@@ -90,7 +91,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 // editText에 있는 문장을 읽는다.
-                tts.speak(A.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak(Q.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }
