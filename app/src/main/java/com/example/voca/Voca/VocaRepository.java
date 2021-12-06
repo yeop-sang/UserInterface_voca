@@ -21,7 +21,8 @@ public class VocaRepository {
     }
 
     public LiveData<List<Voca>> getVocas(String column, boolean learned, boolean descending) {
-        return convertedVocaOrdering(column, learned, descending);
+        vocas = convertedVocaOrdering(column, learned, descending);
+        return vocas;
     }
 
     private LiveData<List<Voca>> convertedVocaOrdering(String column, boolean learned, boolean descending) {
