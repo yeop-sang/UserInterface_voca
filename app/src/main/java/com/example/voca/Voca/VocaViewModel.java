@@ -48,6 +48,8 @@ public class VocaViewModel extends AndroidViewModel {
         repository.insert(voca);
     }
 
+    public void vocaLearn(Voca voca) { }
+
     public void delete(Voca voca) {
         repository.delete(voca);
     }

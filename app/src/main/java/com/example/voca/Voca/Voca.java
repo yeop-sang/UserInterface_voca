@@ -7,8 +7,10 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "voca_table", indices = @Index(value = {"word"}, unique = true))
-public class Voca {
+public class Voca implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -30,5 +32,9 @@ public class Voca {
         this.word = word;
         this.mean = mean;
         this.learned = false;
+    }
+
+    public void learningEnd() {
+        learned = true;
     }
 }
