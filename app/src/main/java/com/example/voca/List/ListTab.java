@@ -49,7 +49,8 @@ public class ListTab extends Fragment implements View.OnClickListener {
     ImageButton wordOrdering;
     ImageButton meanOrdering;
     ImageButton idOrdering;
-
+    final VocaListAdapter learnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff());
+    final VocaListAdapter notLearnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff());
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -72,8 +73,7 @@ public class ListTab extends Fragment implements View.OnClickListener {
         RecyclerView recyclerLearnedView = tabHost.findViewById(R.id.list_tab_learned);
         RecyclerView recyclerNotLearnedView = tabHost.findViewById(R.id.list_tab_not_learned);
 
-        final VocaListAdapter learnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff());
-        final VocaListAdapter notLearnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff());
+
 
         recyclerLearnedView.setAdapter(learnedVocaAdapter);
         recyclerNotLearnedView.setAdapter(notLearnedVocaAdapter);
@@ -109,7 +109,10 @@ public class ListTab extends Fragment implements View.OnClickListener {
 
         return tabHost;
     }
-
+    boolean wordIsSorted = false;
+    boolean meanIsSorted = false;
+    boolean idIsSorted = false;
+    String varDesc = "";
     @Override
     public void onClick(View view) {
         boolean learnedTab = this.tabHost.getCurrentTab() == 1;
@@ -118,13 +121,49 @@ public class ListTab extends Fragment implements View.OnClickListener {
             listDialog.show(manager, null);
         } else if (view == wordOrdering) {
             Log.d("tabhost", "WordOrdering");
-            vocaViewModel.getVocas("word", learnedTab, "");
+            if(wordIsSorted)
+                varDesc = "DESC";
+            else
+                varDesc = "ASEC";
+            vocaViewModel.getVocas("word", learnedTab, varDesc).observe(getViewLifecycleOwner(), vocas -> {
+                vocaNotLearnedList.clear();
+                vocaNotLearnedList.addAll(vocas);
+                if(learnedTab)
+                    learnedVocaAdapter.submitList(vocas);
+                else
+                    notLearnedVocaAdapter.submitList(vocas);
+            });
+            wordIsSorted = !wordIsSorted;
         } else if (view == meanOrdering) {
             Log.d("tabhost", "meanOrdering");
-            vocaViewModel.getVocas("mean", learnedTab, "");
+            if(meanIsSorted)
+                varDesc = "DESC";
+            else
+                varDesc = "ASEC";
+            vocaViewModel.getVocas("mean", learnedTab, varDesc).observe(getViewLifecycleOwner(), vocas -> {
+                vocaNotLearnedList.clear();
+                vocaNotLearnedList.addAll(vocas);
+                if(learnedTab)
+                    learnedVocaAdapter.submitList(vocas);
+                else
+                    notLearnedVocaAdapter.submitList(vocas);
+            });
+            meanIsSorted = !meanIsSorted;
         } else if (view == idOrdering) {
             Log.d("tabhost", "idOrdering");
-            vocaViewModel.getVocas("id", learnedTab, "");
+            if(idIsSorted)
+                varDesc = "DESC";
+            else
+                varDesc = "ASEC";
+            vocaViewModel.getVocas("id", learnedTab, varDesc).observe(getViewLifecycleOwner(), vocas -> {
+                vocaNotLearnedList.clear();
+                vocaNotLearnedList.addAll(vocas);
+                if(learnedTab)
+                    learnedVocaAdapter.submitList(vocas);
+                else
+                    notLearnedVocaAdapter.submitList(vocas);
+            });
+            idIsSorted = !idIsSorted;
         }
         Log.d("tabhost", "" + learnedTab);
     }
