@@ -126,12 +126,15 @@ public class ListTab extends Fragment implements View.OnClickListener {
             else
                 varDesc = "ASEC";
             vocaViewModel.getVocas("word", learnedTab, varDesc).observe(getViewLifecycleOwner(), vocas -> {
-                vocaNotLearnedList.clear();
-                vocaNotLearnedList.addAll(vocas);
-                if(learnedTab)
+                if (learnedTab){
+                    vocaLearnedList.clear();
+                    vocaLearnedList.addAll(vocas);
                     learnedVocaAdapter.submitList(vocas);
-                else
+                }else {
+                    vocaNotLearnedList.clear();
+                    vocaNotLearnedList.addAll(vocas);
                     notLearnedVocaAdapter.submitList(vocas);
+                }
             });
             wordIsSorted = !wordIsSorted;
         } else if (view == meanOrdering) {
@@ -141,12 +144,15 @@ public class ListTab extends Fragment implements View.OnClickListener {
             else
                 varDesc = "ASEC";
             vocaViewModel.getVocas("mean", learnedTab, varDesc).observe(getViewLifecycleOwner(), vocas -> {
-                vocaNotLearnedList.clear();
-                vocaNotLearnedList.addAll(vocas);
-                if(learnedTab)
+                if (learnedTab){
+                    vocaLearnedList.clear();
+                    vocaLearnedList.addAll(vocas);
                     learnedVocaAdapter.submitList(vocas);
-                else
+                }else {
+                    vocaNotLearnedList.clear();
+                    vocaNotLearnedList.addAll(vocas);
                     notLearnedVocaAdapter.submitList(vocas);
+                }
             });
             meanIsSorted = !meanIsSorted;
         } else if (view == idOrdering) {
@@ -156,12 +162,15 @@ public class ListTab extends Fragment implements View.OnClickListener {
             else
                 varDesc = "ASEC";
             vocaViewModel.getVocas("id", learnedTab, varDesc).observe(getViewLifecycleOwner(), vocas -> {
-                vocaNotLearnedList.clear();
-                vocaNotLearnedList.addAll(vocas);
-                if(learnedTab)
+                if (learnedTab){
+                    vocaLearnedList.clear();
+                    vocaLearnedList.addAll(vocas);
                     learnedVocaAdapter.submitList(vocas);
-                else
+                }else {
+                    vocaNotLearnedList.clear();
+                    vocaNotLearnedList.addAll(vocas);
                     notLearnedVocaAdapter.submitList(vocas);
+                }
             });
             idIsSorted = !idIsSorted;
         }

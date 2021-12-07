@@ -127,7 +127,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
             tmpList.add(arr[arr.length / 4 * i + random.nextInt(arr.length / 4)]);
         }
         for (int i = rem; i < 4; i++) {
-            tmpList.add(arr[((arr.length / 4) + ((4 + arr.length) / 4) * (i - 1) + random.nextInt((arr.length + 4) / 4)) - 1]);
+            tmpList.add(arr[((arr.length / 4) * rem + ((4 + arr.length) / 4) * (i - rem) + random.nextInt((arr.length + 4) / 4))]);
         }
         Collections.shuffle(tmpList);
         if (mode == 0) {      //단어가 보이고 뜻을 맞추는 경우
