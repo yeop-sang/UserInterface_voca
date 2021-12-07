@@ -3,6 +3,7 @@ package com.example.voca.Quiz;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,8 @@ public class QuizTab extends Fragment implements View.OnClickListener{
         quizBtn23.setOnClickListener(this);
 
         editText= linearLayout.findViewById(R.id.quiz_count);
+        editText.setText("10");
+        editText.setGravity(Gravity.CENTER);
 
         quizFab = (FloatingActionButton) linearLayout.findViewById(R.id.quiz_fab);
         quizFab.setOnClickListener(this);
