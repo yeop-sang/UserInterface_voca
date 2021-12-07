@@ -11,7 +11,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.voca.R;
+import com.example.voca.Voca.Voca;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListener{
@@ -26,18 +30,31 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
     private int cnt = 1;
     private int correct = 0;
     private int quiz_cnt;
+    Voca[] arr = new Voca[7];
+    Button[] arrButton = new Button[4];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        arr[0] = new Voca("Game", "게임");
+        arr[1] = new Voca("Dog", "강아지");
+        arr[2] = new Voca("Cat", "고양이");
+        arr[3] = new Voca("Food", "음식");
+        arr[4] = new Voca("World", "세계");
+        arr[5] = new Voca("People", "사람");
+        arr[6] = new Voca("dish", "접시");
+        //arr[7] = new Voca("wind", "바람");
         Btn1 = findViewById(R.id.B_1);
         Btn2 = findViewById(R.id.B_2);
         Btn3 = findViewById(R.id.B_3);
         Btn4 = findViewById(R.id.B_4);
         BtnR = findViewById(R.id.B_R);
-
+        arrButton[0] = Btn1;
+        arrButton[1] = Btn2;
+        arrButton[2] = Btn3;
+        arrButton[3] = Btn4;
         Btn1.setOnClickListener(this);
         Btn2.setOnClickListener(this);
         Btn3.setOnClickListener(this);
@@ -45,10 +62,10 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
         BtnR.setOnClickListener(this);
 
         textView = findViewById(R.id.quiz_text);
-        textView.setText("문제 "+cnt);
+        setQuiz();
 
         Intent intent = getIntent();
-        quiz_cnt = intent.getIntExtra("문제 수",1);
+        quiz_cnt = intent.getIntExtra("문제 수",10);
     }
 
     @Override
@@ -80,11 +97,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
                         Btn3.setEnabled(true);
                         Btn4.setEnabled(true);
 
-                        Btn1.setText("" + random.nextInt(100));
-                        Btn2.setText("" + random.nextInt(100));
-                        Btn3.setText("" + random.nextInt(100));
-                        Btn4.setText("" + random.nextInt(100));
-                        textView.setText("문제 " + cnt);
+                        setQuiz();
                     } else {
                         Btn1.setVisibility(View.GONE);
                         Btn2.setVisibility(View.GONE);
@@ -95,6 +108,29 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             }, 750);
+        }
+    }
+    List<Voca> tmpList;
+    private void setQuiz() {
+        Random random = new Random();
+        int mode = random.nextInt() % 2;
+        int rem = 4 - (arr.length % 4);
+        tmpList = new ArrayList<>();
+        for (int i = 0; i < rem; i++) {
+            tmpList.add(arr[arr.length / 4 * i + random.nextInt(arr.length / 4)]);
+        }
+        for (int i = rem; i < 4; i++) {
+            tmpList.add(arr[(arr.length / 4) + ((4 + arr.length) / 4) * (i - 1) + random.nextInt((arr.length + 4) / 4)]);
+        }
+        Collections.shuffle(tmpList);
+        if (mode == 0) {      //단어가 보이고 뜻을 맞추는 경우
+            textView.setText(tmpList.get(random.nextInt(4)).word);
+            for (int i = 0; i < 4; i++)
+                arrButton[i].setText(tmpList.get(i).mean);
+        } else {              //뜻이 보이고 단어를 맞추는 경우
+            textView.setText(tmpList.get(random.nextInt(4)).mean);
+            for (int i = 0; i < 4; i++)
+                arrButton[i].setText(tmpList.get(i).word);
         }
     }
 }
