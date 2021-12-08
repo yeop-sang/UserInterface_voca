@@ -31,6 +31,9 @@ public interface VocaDao {
     @Query("SELECT * FROM voca_table ORDER BY id")
     LiveData<List<Voca>> getAllVocas();
 
+    @Query("SELECT * FROM voca_table WHERE word = :search OR mean = :search")
+    LiveData<List<Voca>> searchVocas(String search);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Voca voca);
 
