@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.voca.R;
 import com.example.voca.Voca.Voca;
 import com.example.voca.Voca.VocaViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,8 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     int max = 0;
     float initX;
 
-    private Button learnEndBtn;
+    private FloatingActionButton learnEndBtn;
+    private FloatingActionButton learnNotEndBtn;
 
     VocaViewModel vocaViewModel;
     List<Voca> vocas = new ArrayList<Voca>();
@@ -53,7 +55,9 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
 
         learnEndBtn = findViewById(R.id.card_learn_end);
+        learnNotEndBtn = findViewById(R.id.card_not_learn_end);
         learnEndBtn.setOnClickListener(this);
+        learnNotEndBtn.setOnClickListener(this);
 
         question = findViewById(R.id.question);
         answer = findViewById(R.id.answer);
@@ -100,7 +104,9 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(View view) {
                 // editText에 있는 문장을 읽는다.
 <<<<<<< HEAD
+
                 tts.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+
 =======
                 tts.speak(Q.getText(), TextToSpeech.QUEUE_FLUSH, null, "QUIZ_ID");
 >>>>>>> c4cf2d6a45a833d16218eb9b971f6d43e8dc7379
@@ -122,6 +128,11 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         else if (view ==learnEndBtn) {
             // TODO 학습완료!!!!!
             Toast toast = Toast.makeText(getApplicationContext(),"학습완료",Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else if (view == learnNotEndBtn) {
+            // TODO 학습미완료!!!!!
+            Toast toast = Toast.makeText(getApplicationContext(),"학습 미완료",Toast.LENGTH_SHORT);
             toast.show();
         }
     }
