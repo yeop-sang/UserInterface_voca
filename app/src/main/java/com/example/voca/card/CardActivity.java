@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.voca.R;
 import com.example.voca.Voca.Voca;
@@ -38,6 +39,8 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     int max = 0;
     float initX;
 
+    private Button learnEndBtn;
+
     VocaViewModel vocaViewModel;
     List<Voca> vocas = new ArrayList<Voca>();
 
@@ -48,6 +51,9 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_card);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
+
+        learnEndBtn = findViewById(R.id.card_learn_end);
+        learnEndBtn.setOnClickListener(this);
 
         question = findViewById(R.id.question);
         answer = findViewById(R.id.answer);
@@ -93,7 +99,11 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 // editText에 있는 문장을 읽는다.
+<<<<<<< HEAD
                 tts.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+=======
+                tts.speak(Q.getText(), TextToSpeech.QUEUE_FLUSH, null, "QUIZ_ID");
+>>>>>>> c4cf2d6a45a833d16218eb9b971f6d43e8dc7379
             }
         });
     }
@@ -109,6 +119,11 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             moveLeft();
         else if (view == arrowRight)
             moveRight();
+        else if (view ==learnEndBtn) {
+            // TODO 학습완료!!!!!
+            Toast toast = Toast.makeText(getApplicationContext(),"학습완료",Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @SuppressLint("SetTextI18n")

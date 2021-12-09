@@ -75,4 +75,13 @@
         android:layout_alignParentBottom="true"
         android:textSize="24sp">
     </TextView>
+
+    <Button
+        android:id="@+id/card_learn_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="학습 완료"/>
+
 </RelativeLayout>
