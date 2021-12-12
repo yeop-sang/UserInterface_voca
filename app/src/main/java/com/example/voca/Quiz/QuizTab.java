@@ -71,7 +71,7 @@ public class QuizTab extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if (v == quizFab)  {
-            Intent intent = new Intent(v.getContext(),MainVocaQuiz.class);
+            Intent intent = new Intent(v.getContext(), option1 ? MainVocaQuizOX.class : MainVocaQuiz.class);
             int quizCount = 0;
             try {
                 quizCount = Integer.parseInt(editText.getText().toString());

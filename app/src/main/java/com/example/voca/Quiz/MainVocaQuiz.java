@@ -1,5 +1,6 @@
 package com.example.voca.Quiz;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,8 +35,14 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
     private int correct = 0;
     private int quiz_cnt;
     private boolean learned;
-    Voca[] arr;
+    private int timer;
+    private int answer;
+    private int answerID;
+    private String answerStr = "";
+    int[] arrIncorrect;
+    int arrIncorrectSize = 0;
     Button[] arrButton = new Button[4];
+    Voca[] arr;
     VocaViewModel vocaViewModel;
 
     @Override
@@ -62,6 +69,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         quiz_cnt = intent.getIntExtra("문제 수",10);
+        arrIncorrect = new int[quiz_cnt];
         learned = intent.getBooleanExtra("learned", false);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
@@ -73,22 +81,30 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View view) {
         if (view == BtnR) {
             Intent intent = new Intent(this, QuizResult.class);
             intent.putExtra("correct", correct);
             intent.putExtra("total", cnt - 1);
+            intent.putExtra("incorrect", arrIncorrect);
             startActivity(intent);
         } else {
-            textView.setText("로딩 중...");
             cnt++;
             Btn1.setEnabled(false);
             Btn2.setEnabled(false);
             Btn3.setEnabled(false);
             Btn4.setEnabled(false);
-            if(view == Btn1)
+            if(view == arrButton[answer]) {
                 correct++;
+                timer = 750;
+                textView.setText("정답!");
+            }else {
+                timer = 1500;
+                arrIncorrect[arrIncorrectSize++] = answerID;
+                textView.setText("오답!\n\n" + answerStr);
+            }
 
             Random random = new Random();
             Handler handler = new Handler();
@@ -112,12 +128,12 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
                         BtnR.setVisibility(View.VISIBLE);
                     }
                 }
-            }, 750);
+            }, timer);
         }
     }
     List<Voca> tmpList;
     private void setQuiz() {
-        if(this.arr.length < 1)
+        if(this.arr.length < 4)
             return;
         Random random = new Random();
         int mode = random.nextInt() % 2;
@@ -130,12 +146,17 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
             tmpList.add(arr[((arr.length / 4) * rem + ((4 + arr.length) / 4) * (i - rem) + random.nextInt((arr.length + 4) / 4))]);
         }
         Collections.shuffle(tmpList);
+        answer = random.nextInt(4);
         if (mode == 0) {      //단어가 보이고 뜻을 맞추는 경우
-            textView.setText(tmpList.get(random.nextInt(4)).word);
+            textView.setText(tmpList.get(answer).word);
+            answerID = tmpList.get(answer).id;
+            answerStr = tmpList.get(answer).mean;
             for (int i = 0; i < 4; i++)
                 arrButton[i].setText(tmpList.get(i).mean);
         } else {              //뜻이 보이고 단어를 맞추는 경우
-            textView.setText(tmpList.get(random.nextInt(4)).mean);
+            textView.setText(tmpList.get(answer).mean);
+            answerID = tmpList.get(answer).id;
+            answerStr = tmpList.get(answer).word;
             for (int i = 0; i < 4; i++)
                 arrButton[i].setText(tmpList.get(i).word);
         }
