@@ -11,6 +11,7 @@
         android:theme="@style/Theme.Voca">
         <activity
             android:name=".Quiz.MainVocaQuizOX"
+            android:noHistory="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,11 +38,9 @@
             android:name=".Quiz.ReadDBActivity"
             android:exported="true" />
         <activity
-            android:name=".Quiz.QuizMainActivity"
-            android:exported="true" />
-        <activity
             android:name=".Quiz.MainVocaQuiz"
-            android:exported="true"></activity>
+            android:noHistory="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

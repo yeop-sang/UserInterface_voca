@@ -23,12 +23,14 @@
              android:layout_height="100dp"
              android:layout_margin="4dp"
              android:id="@+id/B_1"
+             android:textAllCaps="false"
              android:text="Ans1"/>
          <Button android:layout_width="0dp"
              android:layout_weight="1"
              android:layout_height="100dp"
              android:layout_margin="4dp"
              android:id="@+id/B_2"
+             android:textAllCaps="false"
              android:text="Ans2"/>
       </TableRow>
       <TableRow>
@@ -37,12 +39,14 @@
              android:layout_height="100dp"
              android:layout_margin="4dp"
              android:id="@+id/B_3"
+             android:textAllCaps="false"
              android:text="Ans3"/>
          <Button android:layout_width="0dp"
              android:layout_weight="1"
              android:layout_height="100dp"
              android:layout_margin="4dp"
              android:id="@+id/B_4"
+             android:textAllCaps="false"
              android:text="Ans4"/>
       </TableRow>
    </TableLayout>
