@@ -57,4 +57,13 @@
        android:id="@+id/B_R"
        android:text="Result"
        android:visibility="gone"/>
+   <TextView
+       android:id="@+id/quiz_index"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:layout_marginTop="4dp"
+       android:layout_marginBottom="16dp"
+       android:textSize="24sp">
+   </TextView>
 </LinearLayout>

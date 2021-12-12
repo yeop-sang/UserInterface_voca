@@ -21,6 +21,7 @@ import java.util.Random;
 public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickListener{
 
     private TextView textView;
+    private TextView quizIndex;
     private Button Btn1;
     private Button Btn2;
     private Button BtnR;
@@ -52,10 +53,12 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
         BtnR.setOnClickListener(this);
 
         textView = findViewById(R.id.quiz_text);
+        quizIndex = findViewById(R.id.quiz_index);
 
         Intent intent = getIntent();
         quiz_cnt = intent.getIntExtra("문제 수",10);
         arrIncorrect = new int[quiz_cnt];
+        quizIndex.setText(cnt+" / "+quiz_cnt);
         learned = intent.getBooleanExtra("learned", false);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
@@ -101,9 +104,11 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
                         Btn2.setEnabled(true);
 
                         setQuiz();
+                        quizIndex.setText(cnt+" / "+quiz_cnt);
                     } else {
                         Btn1.setVisibility(View.GONE);
                         Btn2.setVisibility(View.GONE);
+                        quizIndex.setVisibility(View.GONE);
                         textView.setText("퀴즈 종료");
                         BtnR.setVisibility(View.VISIBLE);
                     }
