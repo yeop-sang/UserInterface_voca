@@ -32,6 +32,7 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
     private int timer;
     private int answer;
     private int answerID;
+    private boolean mode;
     int[] arrIncorrect;
     int arrIncorrectSize = 0;
     Button[] arrButton = new Button[2];
@@ -60,6 +61,7 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
         arrIncorrect = new int[quiz_cnt];
         quizIndex.setText(cnt+" / "+quiz_cnt);
         learned = !intent.getBooleanExtra("option2", false);
+        mode = intent.getBooleanExtra("options3", false);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
 
@@ -121,14 +123,13 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
         if(this.arr.length < 4)
             return;
         Random random = new Random();
-        int mode = random.nextInt() % 2;
         int answerIndex = Math.abs(random.nextInt() % arr.length);
         int fakeAnswerIndex = Math.abs(random.nextInt() % arr.length);
         while(answerIndex == fakeAnswerIndex)
             fakeAnswerIndex = Math.abs(random.nextInt() % arr.length);
         answer = random.nextInt(2);     //answer이 0이면 X가 정답, 1이면 O가 정답
         answerID = arr[answerIndex].id;
-        if (mode == 0) {      //단어가 보이고 뜻을 맞추는 경우
+        if (mode) {      //단어가 보이고 뜻을 맞추는 경우
             if(answer == 1)
                 textView.setText(arr[answerIndex].word+"\n의 뜻은\n"+arr[answerIndex].mean);
             else

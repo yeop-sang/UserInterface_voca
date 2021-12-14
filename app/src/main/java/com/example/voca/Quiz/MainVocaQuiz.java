@@ -36,6 +36,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
     private int correct = 0;
     private int quiz_cnt;
     private boolean learned;
+    private boolean mode;
     private int timer;
     private int answer;
     private int answerID;
@@ -74,6 +75,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
         arrIncorrect = new int[quiz_cnt];
         quizIndex.setText(cnt+" / "+quiz_cnt);
         learned = !intent.getBooleanExtra("option2", false);
+        mode = intent.getBooleanExtra("option3", false);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
 
@@ -141,7 +143,6 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
         if(this.arr.length < 4)
             return;
         Random random = new Random();
-        int mode = random.nextInt() % 2;
         int rem = 4 - (arr.length % 4);
         tmpList = new ArrayList<>();
         for (int i = 0; i < rem; i++) {
@@ -152,7 +153,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
         }
         Collections.shuffle(tmpList);
         answer = random.nextInt(4);
-        if (mode == 0) {      //단어가 보이고 뜻을 맞추는 경우
+        if (mode) {      //단어가 보이고 뜻을 맞추는 경우
             textView.setText(tmpList.get(answer).word);
             answerID = tmpList.get(answer).id;
             answerStr = tmpList.get(answer).mean;
