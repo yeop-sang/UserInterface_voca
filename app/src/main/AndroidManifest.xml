@@ -10,10 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
             android:name=".List.ListViewDialog"
+            android:exported="true"
+            android:theme="@style/Theme.MyDialog"/>
+        <activity
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
             android:name=".card.CardActivity"
@@ -32,9 +33,6 @@
             android:exported="true" />
         <activity
             android:name=".Quiz.ReadDBActivity"
-            android:exported="true" />
-        <activity
-            android:name=".Quiz.QuizMainActivity"
             android:exported="true" />
         <activity
             android:name=".Quiz.MainVocaQuiz"

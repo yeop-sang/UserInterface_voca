@@ -108,5 +108,7 @@ public class SearchActivity extends AppCompatActivity {
     private void settingList(){
         // list 세팅해야 함.
 
+
+
     }
 }

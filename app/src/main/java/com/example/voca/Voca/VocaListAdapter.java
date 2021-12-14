@@ -1,6 +1,7 @@
 package com.example.voca.Voca;
 
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,9 +42,6 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
 
     @Override
     public VocaViewHolder onCreateViewHolder(ViewGroup parent, int ViewType) {
-
-
-
         return VocaViewHolder.create(parent);
     }
 
@@ -56,18 +54,18 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
 
             @Override
             public void onClick(View view) {
-                final Dialog d = new Dialog(mContext); // 다이얼로그 객체 생성
-                d.setTitle("다이얼로그의 제목");
-                d.setContentView(R.layout.activity_list_view_dialog); // 다이얼로그 화면 등록
 
-                /*Bundle args = new Bundle();
-                args.putSerializable("key", current);
+                Intent intent = new Intent();
 
-                DialogFragment dialogFragment = new DialogFragment ();
-                dialogFragment.setArguments(args);
-                dialogFragment.show(dialogFragment.getFragmentManager(), "Sample Dialog Fragment");*/
+                ComponentName componentName = new ComponentName (
+                        "com.example.voca",
+                        "com.example.voca.List.ListViewDialog"
+                );
+                intent.setComponent(componentName);
 
-                d.show(); // 다이얼로그 띄우기
+                intent.putExtra("Voca_Data", current);
+
+                mContext.startActivity(intent);
 
                 Toast toast = Toast.makeText(view.getContext(), current.word+"클릭",Toast.LENGTH_SHORT);
                 toast.show();
