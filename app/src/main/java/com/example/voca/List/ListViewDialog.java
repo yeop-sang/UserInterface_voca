@@ -65,6 +65,10 @@ public class ListViewDialog extends AppCompatActivity implements View.OnClickLis
         wordText.setText(current.word);
         meanText.setText(current.mean);
 
+        if (current.learned) {
+            learning.setText("학습 미완료");
+        }
+
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -84,7 +88,14 @@ public class ListViewDialog extends AppCompatActivity implements View.OnClickLis
             tts.speak(current.word,TextToSpeech.QUEUE_FLUSH,null);
         }
         else if (v==learning) {
-            current.learned = true;
+            if (current.learned) {
+                current.learned = false;
+            }
+            else {
+                current.learned = true;
+            }
+
+            vocaViewModel.update(current);
         }
     }
 }

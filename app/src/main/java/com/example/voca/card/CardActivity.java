@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.voca.R;
 import com.example.voca.Voca.Voca;
@@ -32,13 +32,16 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     private TextView question;
     private TextView answer;
     private TextView index;
-    ImageButton ttsButton;
-    Button visButton;
-    ImageButton arrowLeft;
-    ImageButton arrowRight;
-    int cnt = 0;
-    int max = 0;
-    float initX;
+    private ImageButton ttsButton;
+    private Button visButton;
+    private ImageButton arrowLeft;
+    private ImageButton arrowRight;
+    private int cnt = 0;
+    private int max = 0;
+    private float initX;
+
+    private boolean wordOrMean;
+    private boolean notLearned;
 
     private FloatingActionButton learnEndBtn;
     private FloatingActionButton learnNotEndBtn;
@@ -71,13 +74,30 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         arrowLeft.setOnClickListener(this);
         arrowRight.setOnClickListener(this);
 
-        vocaViewModel.getVocas("word", false, "DESC").observe(this, vocas -> {
-            Log.d("CardActivity", "변경감지");
-            this.vocas.clear();
-            this.vocas.addAll(vocas);
-            max = vocas.size() - 1;
-            setText(cnt);
-        });
+        Intent intent = getIntent();
+
+        wordOrMean=intent.getBooleanExtra("option1",true);
+        notLearned =intent.getBooleanExtra("option2",true);
+
+        if (notLearned) {
+            vocaViewModel.getVocas("word", false, "DESC").observe(this, vocas -> {
+                Log.d("CardActivity", "변경감지");
+                this.vocas.clear();
+                this.vocas.addAll(vocas);
+                max = vocas.size() - 1;
+                setText(cnt);
+            });
+        }
+        else {
+            vocaViewModel.getVocas("word", true, "DESC").observe(this, vocas -> {
+                Log.d("CardActivity", "변경감지");
+                this.vocas.clear();
+                this.vocas.addAll(vocas);
+                max = vocas.size() - 1;
+                setText(cnt);
+            });
+        }
+
 
         // TTS를 생성하고 OnInitListener로 초기화 한다.
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -120,15 +140,13 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         else if (view == arrowRight)
             moveRight();
         else if (view ==learnEndBtn) {
-            // TODO 학습완료!!!!!
-            Toast toast = Toast.makeText(getApplicationContext(),"학습완료",Toast.LENGTH_SHORT);
-            toast.show();
+            vocas.get(cnt).learned=true;
         }
         else if (view == learnNotEndBtn) {
-            // TODO 학습미완료!!!!!
-            Toast toast = Toast.makeText(getApplicationContext(),"학습 미완료",Toast.LENGTH_SHORT);
-            toast.show();
+            vocas.get(cnt).learned=false;
         }
+
+        vocaViewModel.update(vocas.get(cnt));
     }
 
     @SuppressLint("SetTextI18n")
@@ -169,8 +187,15 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setText(int cnt) {
-        question.setText(vocas.get(cnt).word);
-        answer.setText(vocas.get(cnt).mean);
-        index.setText((cnt + 1) + " / " + (max + 1));
+        if (wordOrMean) {
+            question.setText(vocas.get(cnt).word);
+            answer.setText(vocas.get(cnt).mean);
+            index.setText((cnt + 1) + " / " + (max + 1));
+        }
+        else {
+            question.setText(vocas.get(cnt).mean);
+            answer.setText(vocas.get(cnt).word);
+            index.setText((cnt + 1) + " / " + (max + 1));
+        }
     }
 }

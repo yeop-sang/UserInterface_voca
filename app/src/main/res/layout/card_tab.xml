@@ -60,21 +60,6 @@
                 android:layout_margin="20dp"
                 android:text="완료" />
 
-            <Button
-                android:id="@+id/card_btn13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="순서대로" />
-
-            <Button
-                android:id="@+id/card_btn23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="무작위" />
-
-
         </GridLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
