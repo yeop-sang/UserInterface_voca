@@ -3,32 +3,31 @@ package com.example.voca;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.voca.Voca.Voca;
-import com.example.voca.Voca.VocaRepository;
+import com.example.voca.Voca.VocaViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.ScheduledExecutorService;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<String> list;
 
     private ListView listView;          // 검색을 보여줄 리스트변수
     private EditText editSearch;        // 검색어를 입력할 Input 창
+    private ImageButton backButton;
     private SearchAdapter adapter;      // 리스트뷰에 연결할 아답터
     private ArrayList<String> arraylist;
+
+
+    VocaViewModel vocaViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +36,7 @@ public class SearchActivity extends AppCompatActivity {
 
         editSearch =  (EditText) findViewById(R.id.search_text);
         listView = (ListView) findViewById(R.id.search_result);
+        backButton = findViewById(R.id.search_back);
 
         list = new ArrayList<String>();
 
@@ -72,8 +72,6 @@ public class SearchActivity extends AppCompatActivity {
                 search(text);
             }
         });
-
-
     }
 
     // 검색을 수행하는 메소드
@@ -104,9 +102,27 @@ public class SearchActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onClick(View v) {
+        Log.d("click", "Clicked");
+        if(v == backButton) {
+            Log.d("shit","Back!");
+            super.onBackPressed();
+        }
+    }
+
     // 검색에 사용될 데이터를 리스트에 추가한다.
     private void settingList(){
-        // list 세팅해야 함.
+        vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
+        vocaViewModel.getVocas().observe(this, vocas -> {
+            arraylist.clear();
+            for(int i = 0; i < vocas.size(); i++) {
+                Log.d("test", vocas.get(i).word);
+                arraylist.add(vocas.get(i).word);
+            }
+            list.addAll(arraylist);
+            adapter.notifyDataSetChanged();
+        });
 
     }
 }
