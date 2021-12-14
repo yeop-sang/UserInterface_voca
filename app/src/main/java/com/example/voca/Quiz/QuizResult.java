@@ -19,7 +19,6 @@ public class QuizResult extends AppCompatActivity implements View.OnClickListene
     private int total;
 
     private Button quizExitBtn;
-    private Button incorrectListBtn;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -29,8 +28,6 @@ public class QuizResult extends AppCompatActivity implements View.OnClickListene
 
         quizExitBtn = findViewById(R.id.quiz_exit);
         quizExitBtn.setOnClickListener(this);
-        incorrectListBtn = findViewById(R.id.incorrect_list);
-        incorrectListBtn.setOnClickListener(this);
 
         Intent intent = getIntent();
         correct = intent.getIntExtra("correct", 0);
