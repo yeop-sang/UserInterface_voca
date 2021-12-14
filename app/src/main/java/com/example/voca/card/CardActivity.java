@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.voca.R;
 import com.example.voca.Voca.Voca;
@@ -27,9 +28,9 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextToSpeech tts;
 
-    private TextView Q;
-    private TextView A;
-    private TextView I;
+    private TextView question;
+    private TextView answer;
+    private TextView index;
     ImageButton ttsButton;
     Button visButton;
     ImageButton arrowLeft;
@@ -37,6 +38,8 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     int cnt = 0;
     int max = 0;
     float initX;
+
+    private Button learnEndBtn;
 
     VocaViewModel vocaViewModel;
     List<Voca> vocas = new ArrayList<Voca>();
@@ -48,6 +51,21 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_card);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
+
+        learnEndBtn = findViewById(R.id.card_learn_end);
+        learnEndBtn.setOnClickListener(this);
+
+        question = findViewById(R.id.question);
+        answer = findViewById(R.id.answer);
+        index = findViewById(R.id.card_index);
+
+        ttsButton = findViewById(R.id.tts_button);
+        visButton = findViewById(R.id.vis_button);
+        visButton.setOnClickListener(this);
+        arrowLeft = findViewById(R.id.arrow_left);
+        arrowRight = findViewById(R.id.arrow_right);
+        arrowLeft.setOnClickListener(this);
+        arrowRight.setOnClickListener(this);
 
         vocaViewModel.getVocas("word", false, "DESC").observe(this, vocas -> {
             Log.d("CardActivity", "변경감지");
@@ -68,29 +86,20 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        Q = findViewById(R.id.question);
-        A = findViewById(R.id.answer);
-        I = findViewById(R.id.card_index);
-        ttsButton = findViewById(R.id.tts_button);
-        visButton = findViewById(R.id.vis_button);
-        visButton.setOnClickListener(this);
-        arrowLeft = findViewById(R.id.arrow_left);
-        arrowRight = findViewById(R.id.arrow_right);
-        arrowLeft.setOnClickListener(this);
-        arrowRight.setOnClickListener(this);
         if (vocas.size() > 0) {
             setText(cnt);
         } else {
-            Q.setText("loading");
-            A.setText("loading");
-            I.setText("loading");
+            question.setText("loading");
+            answer.setText("loading");
+            index.setText("loading");
         }
+
 
         ttsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // editText에 있는 문장을 읽는다.
-                tts.speak(Q.getText(), TextToSpeech.QUEUE_FLUSH, null, "QUIZ_ID");
+                tts.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }
@@ -106,6 +115,11 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             moveLeft();
         else if (view == arrowRight)
             moveRight();
+        else if (view ==learnEndBtn) {
+            // TODO 학습완료!!!!!
+            Toast toast = Toast.makeText(getApplicationContext(),"학습완료",Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -146,8 +160,8 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setText(int cnt) {
-        Q.setText(vocas.get(cnt).word);
-        A.setText(vocas.get(cnt).mean);
-        I.setText((cnt + 1) + " / " + (max + 1));
+        question.setText(vocas.get(cnt).word);
+        answer.setText(vocas.get(cnt).mean);
+        index.setText((cnt + 1) + " / " + (max + 1));
     }
 }

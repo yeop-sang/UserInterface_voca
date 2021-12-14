@@ -31,7 +31,7 @@ public class VocaViewModel extends AndroidViewModel {
 
     public LiveData<List<Voca>> getVocas(String column, boolean learned, String desc) {
         boolean descValue = !desc.equals("DESC");
-        if(learned) {
+        if (learned) {
             learnedVocas = repository.getVocas(column, true, descValue);
             return learnedVocas;
         } else {
@@ -44,9 +44,15 @@ public class VocaViewModel extends AndroidViewModel {
         return vocas;
     }
 
+    public LiveData<List<Voca>> searchVocas(String search) {
+        return repository.searchVocas(search);
+    }
+
     public void insert(Voca voca) {
         repository.insert(voca);
     }
+
+    public void vocaLearn(Voca voca) { }
 
     public void delete(Voca voca) {
         repository.delete(voca);

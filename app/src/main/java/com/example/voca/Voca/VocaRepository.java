@@ -26,13 +26,18 @@ public class VocaRepository {
     }
 
     private LiveData<List<Voca>> convertedVocaOrdering(String column, boolean learned, boolean descending) {
-        if(column.equals("word")) {
+        if (column.equals("word")) {
             return vocaDao.getVocasAlphabetized(learned, descending);
-        } else if(column.equals("mean")) {
+        } else if (column.equals("mean")) {
             return vocaDao.getVocasHangulized(learned, descending);
-        } else if(column.equals("id")) {
+        } else if (column.equals("id")) {
             return vocaDao.getVocasIdized(learned, descending);
         }
+        return vocas;
+    }
+
+    public LiveData<List<Voca>> searchVocas(String search) {
+        vocas = vocaDao.searchVocas(search);
         return vocas;
     }
 
