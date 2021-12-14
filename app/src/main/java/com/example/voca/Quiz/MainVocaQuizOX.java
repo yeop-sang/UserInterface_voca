@@ -120,14 +120,15 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
     }
     @SuppressLint("SetTextI18n")
     private void setQuiz() {
-        if(this.arr.length < 4)
-            return;
         Random random = new Random();
         int answerIndex = Math.abs(random.nextInt() % arr.length);
         int fakeAnswerIndex = Math.abs(random.nextInt() % arr.length);
-        while(answerIndex == fakeAnswerIndex)
+        while(arr.length != 1 && answerIndex == fakeAnswerIndex)
             fakeAnswerIndex = Math.abs(random.nextInt() % arr.length);
-        answer = random.nextInt(2);     //answer이 0이면 X가 정답, 1이면 O가 정답
+        if(arr.length == 1)
+            answer = 1;
+        else
+            answer = random.nextInt(2);     //answer이 0이면 X가 정답, 1이면 O가 정답
         answerID = arr[answerIndex].id;
         if (mode) {      //단어가 보이고 뜻을 맞추는 경우
             if(answer == 1)

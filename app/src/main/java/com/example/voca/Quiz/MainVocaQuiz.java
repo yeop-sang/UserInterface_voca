@@ -140,8 +140,6 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
     }
     List<Voca> tmpList;
     private void setQuiz() {
-        if(this.arr.length < 4)
-            return;
         Random random = new Random();
         int rem = 4 - (arr.length % 4);
         tmpList = new ArrayList<>();
