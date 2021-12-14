@@ -79,9 +79,13 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
 
-        vocaViewModel.getVocas().observe(this, vocas -> {
-            arr = new Voca[vocas.size()];
+        vocaViewModel.getVocas("word", learned, "DESC").observe(this, vocas -> {
+            arr = new Voca[Math.max(vocas.size(), 4)];
             vocas.toArray(arr);
+            Log.d("size", arr.length+"");
+            Random random = new Random();
+            for(int i=vocas.size();i<4;i++)
+                arr[i] = arr[0];
             setQuiz();
         });
     }
