@@ -23,10 +23,10 @@ abstract public class VocaDatabase extends RoomDatabase {
     abstract VocaDao vocaDao();
 
     static final ArrayList<String> words
-            = new ArrayList<String>(Arrays.asList("resume", "applicant", "requirement", "meet", "qualified", "candidate", "confidence", "highly", "professional"));
+            = new ArrayList<String>(Arrays.asList("resume", "applicant", "requirement", "meet", "candidate", "confidence", "highly", "professional"));
 
     static final ArrayList<String> means
-            = new ArrayList<String>(Arrays.asList("이력서", "지원자,신청자", "필요조건,요건", "만족시키다", "자격있는,적격의", "후보자,지원자", "확신,자신,신임", "매우,대단히", "전문적인,직업의,전문가"));
+            = new ArrayList<String>(Arrays.asList("이력서", "지원자,신청자", "필요조건,요건", "만족시키다", "후보자,지원자", "확신,자신,신임", "매우,대단히", "전문적인,직업의,전문가"));
 
     private static volatile VocaDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
