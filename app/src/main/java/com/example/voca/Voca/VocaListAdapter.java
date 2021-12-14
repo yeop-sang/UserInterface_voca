@@ -29,9 +29,6 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
     private DiffUtil.ItemCallback<Voca> vocaList;
     protected Context mContext;
 
-    DialogFragment listDialog;
-    FragmentManager manager; //androidx.fragment.app.FragmentManager
-
     public VocaListAdapter(@NonNull DiffUtil.ItemCallback<Voca> diffCallback, Context context) {
         super(diffCallback);
 
@@ -66,9 +63,6 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
                 intent.putExtra("Voca_Data", current);
 
                 mContext.startActivity(intent);
-
-                Toast toast = Toast.makeText(view.getContext(), current.word+"클릭",Toast.LENGTH_SHORT);
-                toast.show();
             }
 
         });

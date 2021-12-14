@@ -95,6 +95,8 @@ public class ListViewDialog extends AppCompatActivity implements View.OnClickLis
                 current.learned = true;
             }
 
+            finish();
+
             vocaViewModel.update(current);
         }
     }

@@ -30,27 +30,6 @@ public class MainActivity extends AppCompatActivity  {
     private QuizTab threeFragment;
 
     private Menu ListTabActionBar;
-/*
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        ListTabActionBar = findViewById(R.id.list_tab_search);
-
-        manager = getSupportFragmentManager();
-        oneFragment = new ListTab();
-        twoFragment = new CardTab();
-        threeFragment = new QuizTab();
-
-//      FragmentTransaction tf=manager.beginTransaction();
-//      tf.add(R.id.main_container, oneFragment);
-//      tf.commit();
-
-         FragmentTransaction tf=manager.beginTransaction();
-         tf.add(R.id.main_container, oneFragment);
-         tf.commit();
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.voca.R;
 import com.example.voca.Voca.Voca;
@@ -78,6 +79,17 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
 
         wordOrMean=intent.getBooleanExtra("option1",true);
         notLearned =intent.getBooleanExtra("option2",true);
+
+        if (cnt == 0) {
+            if(notLearned) {
+                Toast toast = Toast.makeText(getApplicationContext(),"list에 단어가 없어 학습완료 Card를 실행합니다.",Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(),"list에 단어가 없어 학습중 Card를 실행합니다.",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            notLearned = !notLearned;
+        }
 
         if (notLearned) {
             vocaViewModel.getVocas("word", false, "DESC").observe(this, vocas -> {
