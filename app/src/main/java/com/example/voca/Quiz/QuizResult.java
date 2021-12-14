@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class QuizResult extends AppCompatActivity implements View.OnClickListene
     private Button quizExitBtn;
     private Button incorrectListBtn;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +43,16 @@ public class QuizResult extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         if (v==quizExitBtn) {
-            Intent mainIntent= new Intent(v.getContext(), MainActivity.class);
-            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // 기존의 액티비티 삭제
-            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 새로운 액티비티 생성
-            startActivity(mainIntent);
+            finish();
         }
         else {
             //incorrect list Activity
+            Intent intent = getIntent();
+            int[] arr = intent.getIntArrayExtra("incorrect");
+            Log.d("test", ""+arr[1]);
+            //Intent intent = new Intent(this, QuizResultList);
+            //intent.putExtra("incorrect", intent.getIntArrayExtra("incorrect"));
+            //startActivity(intent);
         }
     }
 }
