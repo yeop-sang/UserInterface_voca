@@ -36,7 +36,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         editSearch =  (EditText) findViewById(R.id.search_text);
         listView = (ListView) findViewById(R.id.search_result);
-        backButton = findViewById(R.id.search_back);
 
         list = new ArrayList<String>();
 

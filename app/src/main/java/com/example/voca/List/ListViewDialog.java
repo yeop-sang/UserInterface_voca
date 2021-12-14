@@ -76,7 +76,7 @@ public class ListViewDialog extends AppCompatActivity implements View.OnClickLis
             public void onInit(int status) {
                 if (status != ERROR) {
                     // 언어를 선택한다.
-                    tts.setLanguage(Locale.KOREAN);
+                    tts.setLanguage(Locale.ENGLISH);
                 }
             }
         });
