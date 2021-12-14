@@ -41,7 +41,7 @@ public class VocaViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Voca>> getVocas() {
-        return vocas;
+        return repository.getVocas();
     }
 
     public LiveData<List<Voca>> searchVocas(String search) {

@@ -40,6 +40,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
     private int cnt = 0;
     private int max = 0;
     private float initX;
+    private boolean loadFlag = false;
 
     private boolean wordOrMean;
     private boolean notLearned;
@@ -77,38 +78,28 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
 
-        wordOrMean=intent.getBooleanExtra("option1",true);
-        notLearned =intent.getBooleanExtra("option2",true);
+        wordOrMean = intent.getBooleanExtra("option1", true);
+        notLearned = intent.getBooleanExtra("option2", true);
 
-        if (cnt == 0) {
-            if(notLearned) {
-                Toast toast = Toast.makeText(getApplicationContext(),"list에 단어가 없어 학습완료 Card를 실행합니다.",Toast.LENGTH_SHORT);
-                toast.show();
-            } else {
-                Toast toast = Toast.makeText(getApplicationContext(),"list에 단어가 없어 학습중 Card를 실행합니다.",Toast.LENGTH_SHORT);
-                toast.show();
-            }
-            notLearned = !notLearned;
-        }
-
-        if (notLearned) {
-            vocaViewModel.getVocas("word", false, "DESC").observe(this, vocas -> {
-                Log.d("CardActivity", "변경감지");
-                this.vocas.clear();
-                this.vocas.addAll(vocas);
-                max = vocas.size() - 1;
-                setText(cnt);
-            });
-        }
-        else {
-            vocaViewModel.getVocas("word", true, "DESC").observe(this, vocas -> {
-                Log.d("CardActivity", "변경감지");
-                this.vocas.clear();
-                this.vocas.addAll(vocas);
-                max = vocas.size() - 1;
-                setText(cnt);
-            });
-        }
+        vocaViewModel.getVocas("word", !notLearned, "DESC").observe(this, vocas -> {
+            Log.d("CardActivity", "변경감지");
+            this.vocas.clear();
+            this.vocas.addAll(vocas);
+            max = vocas.size() - 1;
+            setText(cnt);
+            if(loadFlag)
+                if (cnt == 0) {
+                    if(notLearned) {
+                        Toast toast = Toast.makeText(getApplicationContext(),"list에 단어가 없어 학습완료 Card를 실행합니다.",Toast.LENGTH_SHORT);
+                        toast.show();
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(),"list에 단어가 없어 학습중 Card를 실행합니다.",Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    notLearned = !notLearned;
+                }
+            else loadFlag = true;
+        });
 
 
         // TTS를 생성하고 OnInitListener로 초기화 한다.
@@ -151,11 +142,10 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             moveLeft();
         else if (view == arrowRight)
             moveRight();
-        else if (view ==learnEndBtn) {
-            vocas.get(cnt).learned=true;
-        }
-        else if (view == learnNotEndBtn) {
-            vocas.get(cnt).learned=false;
+        else if (view == learnEndBtn) {
+            vocas.get(cnt).learned = true;
+        } else if (view == learnNotEndBtn) {
+            vocas.get(cnt).learned = false;
         }
 
         vocaViewModel.update(vocas.get(cnt));
@@ -183,7 +173,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             setText(cnt);
         } else
             cnt -= 1;
-            setText(cnt);
+        setText(cnt);
         visButton.setAlpha((float) 1.0);
     }
 
@@ -203,8 +193,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             question.setText(vocas.get(cnt).word);
             answer.setText(vocas.get(cnt).mean);
             index.setText((cnt + 1) + " / " + (max + 1));
-        }
-        else {
+        } else {
             question.setText(vocas.get(cnt).mean);
             answer.setText(vocas.get(cnt).word);
             index.setText((cnt + 1) + " / " + (max + 1));

@@ -17,6 +17,7 @@ public class VocaRepository {
     }
 
     public LiveData<List<Voca>> getVocas() {
+        vocas = vocaDao.getAllVocas();
         return vocas;
     }
 
