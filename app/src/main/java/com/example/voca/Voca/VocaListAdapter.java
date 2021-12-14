@@ -65,6 +65,7 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
                 mContext.startActivity(intent);
             }
 
+            }
         });
     }
 

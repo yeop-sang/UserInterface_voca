@@ -59,7 +59,7 @@ public class QuizTab extends Fragment implements View.OnClickListener{
         quizBtn23.setOnClickListener(this);
 
         editText= linearLayout.findViewById(R.id.quiz_count);
-        editText.setText("10");
+        editText.setText("4");
         editText.setGravity(Gravity.CENTER);
 
         quizFab = (FloatingActionButton) linearLayout.findViewById(R.id.quiz_fab);
@@ -123,7 +123,7 @@ public class QuizTab extends Fragment implements View.OnClickListener{
             }
 
             if(quizCount == 0)
-                quizCount = 10;
+                quizCount = 4;
 
             intent.putExtra("option1",option1);
             intent.putExtra("option2",option2);
