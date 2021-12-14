@@ -35,6 +35,7 @@
             android:name=".Quiz.MainVocaQuiz"
             android:noHistory="true"
             android:exported="true"/>
+        <activity android:name=".SearchActivity"/>
     </application>
 
 </manifest>

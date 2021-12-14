@@ -56,9 +56,10 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
 
             @Override
             public void onClick(View view) {
-                final Dialog d = new Dialog(mContext); // 다이얼로그 객체 생성
-                d.setTitle("다이얼로그의 제목");
-                d.setContentView(R.layout.activity_list_view_dialog); // 다이얼로그 화면 등록
+                if(mContext != null) {
+                    final Dialog d = new Dialog(mContext); // 다이얼로그 객체 생성
+                    d.setTitle("다이얼로그의 제목");
+                    d.setContentView(R.layout.activity_list_view_dialog); // 다이얼로그 화면 등록
 
                 /*Bundle args = new Bundle();
                 args.putSerializable("key", current);
@@ -67,12 +68,13 @@ public class VocaListAdapter extends ListAdapter<Voca, VocaViewHolder> {
                 dialogFragment.setArguments(args);
                 dialogFragment.show(dialogFragment.getFragmentManager(), "Sample Dialog Fragment");*/
 
-                d.show(); // 다이얼로그 띄우기
+                    d.show(); // 다이얼로그 띄우기
 
-                Toast toast = Toast.makeText(view.getContext(), current.word+"클릭",Toast.LENGTH_SHORT);
-                toast.show();
+                    Toast toast = Toast.makeText(view.getContext(), current.word+"클릭",Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
             }
-
         });
     }
 

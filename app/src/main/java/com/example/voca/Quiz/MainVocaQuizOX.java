@@ -59,7 +59,7 @@ public class MainVocaQuizOX extends AppCompatActivity implements View.OnClickLis
         quiz_cnt = intent.getIntExtra("문제 수",10);
         arrIncorrect = new int[quiz_cnt];
         quizIndex.setText(cnt+" / "+quiz_cnt);
-        learned = intent.getBooleanExtra("learned", false);
+        learned = !intent.getBooleanExtra("option2", false);
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
 
