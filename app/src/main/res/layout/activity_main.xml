@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
 
     <LinearLayout
         android:id="@+id/main_container"
@@ -16,41 +15,13 @@
 
     </LinearLayout>
 
-    <LinearLayout
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/main_btn1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/main_button"
-            android:drawableTop="@drawable/tab_icon1"
-            android:text="단어장"
-            android:theme="@style/Ripple"/>
-
-        <Button
-            android:id="@+id/main_btn2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/main_button"
-            android:drawableTop="@drawable/tab_icon2"
-            android:text="단어카드"
-            android:theme="@style/Ripple"/>
-
-        <Button
-            android:id="@+id/main_btn3"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/main_button"
-            android:drawableTop="@drawable/tab_icon3"
-            android:text="퀴즈"
-            android:theme="@style/Ripple"/>
-    </LinearLayout>
+        app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>
+

@@ -1,12 +1,16 @@
 package com.example.voca;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,12 +20,9 @@ import com.example.voca.Quiz.QuizTab;
 import com.example.voca.Voca.Voca;
 import com.example.voca.Voca.VocaViewModel;
 import com.example.voca.card.CardTab;
+import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button btn1;
-    private Button btn2;
-    private Button btn3;
+public class MainActivity extends AppCompatActivity  {
 
     private FragmentManager manager; //androidx.fragment.app.FragmentManager
     private ListTab oneFragment;
@@ -29,21 +30,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private QuizTab threeFragment;
 
     private Menu ListTabActionBar;
-
+/*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn1 = findViewById(R.id.main_btn1);
-        btn2 = findViewById(R.id.main_btn2);
-        btn3 = findViewById(R.id.main_btn3);
-
         ListTabActionBar = findViewById(R.id.list_tab_search);
-
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
 
         manager = getSupportFragmentManager();
         oneFragment = new ListTab();
@@ -57,42 +50,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          FragmentTransaction tf=manager.beginTransaction();
          tf.add(R.id.main_container, oneFragment);
          tf.commit();
-    }
+    }*/
 
     @Override
-    public void onClick(View v) {
-        if(v==btn1) {
-            if(!oneFragment.isVisible()) {
-                FragmentTransaction tf = manager.beginTransaction();
-                tf.replace(R.id.main_container, oneFragment);
-                //tf.addToBackStack(null);                 // 실행 스택 쌓음. 뒤로가기 누르면 뒤로 감
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-                tf.commit();
-            }
-        } else if (v==btn2) {
-            if(!twoFragment.isVisible()) {
-                FragmentTransaction tf = manager.beginTransaction();
-                tf.replace(R.id.main_container, twoFragment);
-                //tf.addToBackStack(null);                 // 실행 스택 쌓음. 뒤로가기 누르면 뒤로 감
+        NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
+        //BottomNavigation의 부모
+        // 31버전의 경우 아래 리스너들의 함수가 depricated가 된다.
 
-                tf.commit();
-            }
-        } else if (v == btn3) {
-            if(!threeFragment.isVisible()) {
-                Log.d("kkang","111111111111");
-                FragmentTransaction tf = manager.beginTransaction();
-                tf.replace(R.id.main_container,threeFragment);
-                //tf.addToBackStack(null);
+        transferTo(ListTab.newInstance("param1", "param2"));
+        //transferTo로 Favorites 프레그먼트 객체를 만들어 건네줌
 
-                tf.commit();
+        navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item /*어떤 메뉴가 선택되었니*/) {
+                switch (item.getItemId()) {
+                    case R.id.page_1:// Respond to navigation item 1 click
+                        transferTo(ListTab.newInstance("param1", "param2"));
+                        return true;
+                    case R.id.page_2:// Respond to navigation item 2 click
+                        transferTo(CardTab.newInstance("param1", "param2"));
+                        return true;
+                    case R.id.page_3:// Respond to navigation item 3 click
+                        transferTo(QuizTab.newInstance("param1", "param2"));
+                        return true;
+                    default:
+                        return false;
+                }
             }
-        }
+        });
+
+        //다시 선택되었을 때
+        navigationBarView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                //아무 일도 안 일어남. 만약 이거 없으면 동일한 탭 다시 눌렀을 때 새로 만들어짐.
+            }
+        });
+    }
+
+    private void transferTo(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.list_tab_actionbar, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+
         return true;
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent = new Intent(getApplicationContext(),SearchActivity.class);
+
+        startActivity(intent);
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }

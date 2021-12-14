@@ -5,10 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -49,12 +49,40 @@ public class ListTab extends Fragment implements View.OnClickListener {
     ImageButton wordOrdering;
     ImageButton meanOrdering;
     ImageButton idOrdering;
-    final VocaListAdapter learnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff());
-    final VocaListAdapter notLearnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff());
+    final VocaListAdapter learnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff(),getContext());
+    final VocaListAdapter notLearnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff(),getContext());
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    private TextView textView;
+
+    public ListTab() {
+        // Required empty public constructor
+    }
+
+    public static ListTab newInstance(String param1, String param2) {
+        // 객체를 만들어주었던 newInstance 함수
+        ListTab fragment = new ListTab();   // 객체 생성
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);    //Bundle을 넣어주는 setArguments 함수
+        //아직 생명주기에 안들어갔음.
+        return fragment;
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        listDialog = new ListDialog();
+        listDialog = new ListAddDialog();
         manager = getFragmentManager();
 
         tabHost = (TabHost) inflater.inflate(R.layout.list_tab, container, false);
@@ -72,7 +100,6 @@ public class ListTab extends Fragment implements View.OnClickListener {
 
         RecyclerView recyclerLearnedView = tabHost.findViewById(R.id.list_tab_learned);
         RecyclerView recyclerNotLearnedView = tabHost.findViewById(R.id.list_tab_not_learned);
-
 
 
         recyclerLearnedView.setAdapter(learnedVocaAdapter);
@@ -118,6 +145,7 @@ public class ListTab extends Fragment implements View.OnClickListener {
         boolean learnedTab = this.tabHost.getCurrentTab() == 1;
         LiveData<List<Voca>> temp;
         if (view == listFab) {
+            Log.d("tabhost", "ListFab Click");
             listDialog.show(manager, null);
         } else if (view == wordOrdering) {
             Log.d("tabhost", "WordOrdering");
