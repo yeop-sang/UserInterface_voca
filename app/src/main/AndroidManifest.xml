@@ -10,11 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Voca">
         <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".List.ListViewDialog"
-            android:exported="false" />
+            android:name=".Quiz.MainVocaQuizOX"
+            android:noHistory="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".card.CardActivity"
             android:exported="true" />
@@ -34,11 +38,9 @@
             android:name=".Quiz.ReadDBActivity"
             android:exported="true" />
         <activity
-            android:name=".Quiz.QuizMainActivity"
-            android:exported="true" />
-        <activity
             android:name=".Quiz.MainVocaQuiz"
-            android:exported="true" />
+            android:noHistory="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

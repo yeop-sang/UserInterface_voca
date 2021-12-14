@@ -103,8 +103,7 @@ public class CardActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View view) {
                 // editText에 있는 문장을 읽는다.
-
-                tts.speak(question.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak(question.getText(), TextToSpeech.QUEUE_FLUSH, null, "CARD_ID");
             }
         });
     }
