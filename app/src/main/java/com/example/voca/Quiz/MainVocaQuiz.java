@@ -79,7 +79,7 @@ public class MainVocaQuiz extends AppCompatActivity implements View.OnClickListe
 
         vocaViewModel = new ViewModelProvider(this).get(VocaViewModel.class);
 
-        vocaViewModel.getVocas("word", learned, "DESC").observe(this, vocas -> {
+        vocaViewModel.getVocas().observe(this, vocas -> {
             arr = new Voca[vocas.size()];
             vocas.toArray(arr);
             setQuiz();

@@ -49,8 +49,9 @@ public class ListTab extends Fragment implements View.OnClickListener {
     ImageButton wordOrdering;
     ImageButton meanOrdering;
     ImageButton idOrdering;
-    final VocaListAdapter learnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff(),getContext());
-    final VocaListAdapter notLearnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff(),getContext());
+
+    VocaListAdapter learnedVocaAdapter;
+    VocaListAdapter notLearnedVocaAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +88,9 @@ public class ListTab extends Fragment implements View.OnClickListener {
 
         tabHost = (TabHost) inflater.inflate(R.layout.list_tab, container, false);
         tabHost.setup();
+
+        learnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff(),getContext());
+        notLearnedVocaAdapter = new VocaListAdapter(new VocaListAdapter.VocaDiff(),getContext());
 
         TabHost.TabSpec spec = tabHost.newTabSpec("tab1");
         spec.setIndicator("학습 중");
@@ -140,6 +144,7 @@ public class ListTab extends Fragment implements View.OnClickListener {
     boolean meanIsSorted = false;
     boolean idIsSorted = false;
     String varDesc = "";
+
     @Override
     public void onClick(View view) {
         boolean learnedTab = this.tabHost.getCurrentTab() == 1;
