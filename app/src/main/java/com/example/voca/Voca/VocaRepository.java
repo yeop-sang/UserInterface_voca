@@ -47,6 +47,12 @@ public class VocaRepository {
         });
     }
 
+    public void update(Voca voca) {
+        VocaDatabase.databaseWriteExecutor.execute(() -> {
+            vocaDao.update(voca);
+        });
+    }
+
     public void delete(Voca voca) {
         VocaDatabase.databaseWriteExecutor.execute(() -> {
             vocaDao.deleteVoca(voca);

@@ -48,6 +48,8 @@ public class VocaViewModel extends AndroidViewModel {
         return repository.searchVocas(search);
     }
 
+    public void update(Voca voca) { repository.update(voca); }
+
     public void insert(Voca voca) {
         repository.insert(voca);
     }
